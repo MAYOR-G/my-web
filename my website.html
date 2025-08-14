@@ -1,0 +1,1088 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayor G | AI & ML Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            scroll-behavior: smooth;
+        }
+
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tech-logo {
+            transition: all 0.3s ease;
+        }
+
+        .tech-logo:hover {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 5px 15px rgba(59, 130, 246, 0.4));
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .certificate-img {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .certificate-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .testimonial-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-left: 4px solid #3b82f6;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .input-field {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay muted loop id="video-background">
+        <source src="https://res.cloudinary.com/dtv20sgrm/video/upload/v1753788732/mylivewallpapers-com-Hi-Tech-User-Interface-FHD_gdyqy4.mp4" type="video/mp4">
+    </video>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-gradient-to-r from-slate-900/80 to-indigo-900/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-white font-bold text-xl gradient-text">Mayor G</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#about"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#tech"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tech
+                            Stack</a>
+                        <a href="#projects"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#certificates"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Certificates</a>
+                        <a href="#contact"
+                            class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Home</a>
+                <a href="#about"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">About</a>
+                <a href="#tech"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Tech
+                    Stack</a>
+                <a href="#projects"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Projects</a>
+                <a href="#certificates"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Certificates</a>
+                <a href="#contact"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                <span class="gradient-text">Olugbenga Mayowa Emmanuel</span>
+            </h1>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-300">AI & Machine Learning Engineer</h2>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-300">
+                Specializing in LLMs, AI agents, computer vision, and recommendation systems.
+                Passionate about building intelligent systems that solve real-world problems.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="#projects" class="btn-gradient text-white px-6 py-3 rounded-full font-medium">View Projects</a>
+                <a href="#contact"
+                    class="border border-indigo-500 text-white px-6 py-3 rounded-full font-medium hover:bg-indigo-900/30 transition">Contact
+                    Me</a>
+            </div>
+            <div class="mt-12 flex justify-center space-x-6">
+                <a href="https://github.com/MAYOR-G" target="_blank" class="text-gray-300 hover:text-white">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+                <a href="#" class="text-gray-300 hover:text-white" id="download-cv">
+                    <i class="fas fa-file-download text-2xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/mayowa-olugbenga-66a691254/"
+                    target="_blank" class="text-gray-300 hover:text-white">
+                    <i class="fab fa-linkedin text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-slate-900/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
+                    <div class="relative w-64 h-64 rounded-full overflow-hidden border-4 border-indigo-500/30 floating">
+                        <img src="https://media.licdn.com/dms/image/v2/D4D03AQGm4T2D6DAAXw/profile-displayphoto-crop_800_800/B4DZgPsboNGQAI-/0/1752609965967?e=1758153600&v=beta&t=gndfRoIkFpJLucK_HMJUUCDecVivIdKp5bZaTeGYgGQ"
+                            alt="Mayor G" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="md:w-2/3 md:pl-12">
+                    <h3 class="text-2xl font-semibold mb-4">Hello,</h3>
+                    <p class="text-gray-300 mb-4">
+                        Hi, I'm Olugbenga Mayowa Emmanuel — but you can call me Mayor G. I'm an AI and Machine Learning
+                        Engineer passionate about building intelligent systems that solve real-world problems.
+                    </p>
+                    <p class="text-gray-300 mb-4">
+                        My expertise spans natural language processing, computer vision, and AI agent development, with
+                        a focus on creating scalable, ethical, and high-performing solutions.
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        I love working at the intersection of data, algorithms, and human impact — whether it's training
+                        deep learning models, fine-tuning LLMs, or experimenting with cutting-edge AI research. I'm
+                        constantly learning, collaborating, and pushing boundaries to stay ahead in this rapidly
+                        evolving field.
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        Let's build the future with AI.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-indigo-900/50 text-indigo-200 rounded-full text-sm">LLMs</span>
+                        <span class="px-3 py-1 bg-indigo-900/50 text-indigo-200 rounded-full text-sm">AI Agents</span>
+                        <span class="px-3 py-1 bg-indigo-900/50 text-indigo-200 rounded-full text-sm">Computer
+                            Vision</span>
+                        <span class="px-3 py-1 bg-indigo-900/50 text-indigo-200 rounded-full text-sm">Recommendation
+                            Systems</span>
+                        <span class="px-3 py-1 bg-indigo-900/50 text-indigo-200 rounded-full text-sm">Deep
+                            Learning</span>
+                        <span class="px-3 py-1 bg-indigo-900/50 text-indigo-200 rounded-full text-sm">NLP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="py-20 bg-slate-800/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Tech Stack</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <!-- Programming Languages -->
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fab fa-python text-5xl text-blue-400 mb-2"></i>
+                    <span class="text-gray-300">Python</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fas fa-database text-5xl text-blue-400 mb-2"></i>
+                    <span class="text-gray-300">SQL</span>
+                </div>
+
+                <!-- ML/DL Frameworks -->
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg"
+                        alt="scikit-learn" class="h-12 mb-2">
+                    <span class="text-gray-300">scikit-learn</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" alt="TensorFlow"
+                        class="h-12 mb-2">
+                    <span class="text-gray-300">TensorFlow</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/PyTorch_logo_icon.svg" alt="PyTorch"
+                        class="h-12 mb-2">
+                    <span class="text-gray-300">PyTorch</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/XGBoost_logo.png" alt="XGBoost"
+                        class="h-12 mb-2">
+                    <span class="text-gray-300">XGBoost</span>
+                </div>
+
+                <!-- Data Processing -->
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Pandas_mark.svg" alt="Pandas"
+                        class="h-12 mb-2">
+                    <span class="text-gray-300">Pandas</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/NumPy_logo_2020.svg" alt="NumPy"
+                        class="h-12 mb-2">
+                    <span class="text-gray-300">NumPy</span>
+                </div>
+
+                <!-- API & Deployment -->
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" alt="FastAPI"
+                        class="h-12 mb-2">
+                    <span class="text-gray-300">FastAPI</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fab fa-docker text-5xl text-blue-400 mb-2"></i>
+                    <span class="text-gray-300">Docker</span>
+                </div>
+
+                <!-- Version Control & IDEs -->
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fab fa-git-alt text-5xl text-orange-500 mb-2"></i>
+                    <span class="text-gray-300">Git</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fas fa-code text-5xl text-blue-400 mb-2"></i>
+                    <span class="text-gray-300">VS Code</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fas fa-book text-5xl text-orange-400 mb-2"></i>
+                    <span class="text-gray-300">Jupyter</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fab fa-github text-5xl text-gray-300 mb-2"></i>
+                    <span class="text-gray-300">GitHub</span>
+                </div>
+
+                <!-- CMS -->
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fab fa-drupal text-5xl text-blue-600 mb-2"></i>
+                    <span class="text-gray-300">Drupal</span>
+                </div>
+
+                <!-- Cloud Platforms -->
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fab fa-aws text-5xl text-orange-400 mb-2"></i>
+                    <span class="text-gray-300">AWS</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fab fa-google text-5xl text-blue-400 mb-2"></i>
+                    <span class="text-gray-300">Google Cloud</span>
+                </div>
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fab fa-microsoft text-5xl text-blue-500 mb-2"></i>
+                    <span class="text-gray-300">Azure</span>
+                </div>
+
+                <!-- APIs -->
+                <div class="tech-logo flex flex-col items-center p-4">
+                    <i class="fas fa-plug text-5xl text-green-400 mb-2"></i>
+                    <span class="text-gray-300">REST APIs</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-slate-900/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-brain text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Building an LLM from Scratch</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Developed a transformer-based language model from the ground up, implementing attention
+                        mechanisms,
+                        positional encoding, and custom training loops.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">PyTorch</span>
+                        <span
+                            class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Transformers</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">NLP</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-robot text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">Fine-tuning LLMs</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Specialized in fine-tuning large language models for specific domains, achieving
+                        state-of-the-art
+                        performance on custom datasets with limited computational resources.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">HuggingFace</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">LoRA</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">QLoRA</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-robot text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">AI Agent via GEMINI API</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Built an autonomous AI agent capable of completing complex tasks by breaking them down into
+                        subtasks, using tools, and learning from feedback.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">GEMINI</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Langgraph</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">LangChain</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Agents</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-chart-line text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">End-to-End Predictive Model</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Developed a complete ML pipeline from data collection to model deployment, including
+                        feature engineering, model training, API development, and monitoring.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Scikit-learn</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Numpy & Pandas</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Matplotlib</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Flask</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Linear Regression</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-file-invoice-dollar text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">AI Web Scraper Agent</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Built a smart scraping tool that extracts and summarizes web data autonomously. 
+                        Leveraged LangGraph for workflow automation, Gemini for content analysis, 
+                        and Firecrawl for seamless data fetching—delivering structured insights in seconds.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">LangChain</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Gemini</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Firecrawl</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-cat text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">AI DevTools Research Agent</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Automated the discovery and analysis of trending developer tools using LangGraph to orchestrate
+                        workflows, Gemini for API docs synthesis, and Firecrawl for real-time data. Integrated Pydantic for schema validation and automated reporting,
+                        validated data pipelines, reducing manual research time by 80%.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">LangChain</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Firecrawl</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Pydantic</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Gemini</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Project 7 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-chart-line text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">End-to-End Predictive Model</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Developed a complete ML pipeline from data collection to model deployment, including
+                        feature engineering, model training, API development, and monitoring.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span
+                            class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Scikit-learn</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">FastAPI</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Docker</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-robot text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">AI Agent via OpenAI API</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Built an autonomous AI agent capable of completing complex tasks by breaking them down into
+                        subtasks, using tools, and learning from feedback.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">OpenAI</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">LangChain</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Agents</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card rounded-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                            <i class="fas fa-robot text-indigo-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">AI Agent via OpenAI API</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Built an autonomous AI agent capable of completing complex tasks by breaking them down into
+                        subtasks, using tools, and learning from feedback.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">OpenAI</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">LangChain</span>
+                        <span class="px-2 py-1 bg-indigo-900/30 text-indigo-200 rounded-full text-xs">Agents</span>
+                    </div>
+                    <a href="#" class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center">
+                        View Details <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-20 bg-slate-800/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Certificates</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Certificate 1 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/LDv5Qx89/Mayowa-Olugbenga-Python.png" alt="Certificate 1"
+                        class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Python Programming</h3>
+                        <p class="text-gray-400 text-sm">KAGGLE • March 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/PZKXRxLX/AI-Engineer-Certificate.jpg" alt="Certificate 2" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">AI Engineering</h3>
+                        <p class="text-gray-400 text-sm"> OneRoadMap • May 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/600x400" alt="Certificate 3" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Machine Learning in Python</h3>
+                        <p class="text-gray-400 text-sm">FREECodeCamp • January 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 4 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/0wKMjHz/Mayowa-Olugbenga-Advanced-SQL.png" alt="Certificate 4" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Advanced SQL</h3>
+                        <p class="text-gray-400 text-sm">KAGGLE • August 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 5 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/5hNjGHZC/ml-microsoft.jpg" alt="Certificate 5" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Introduction to Machine Learning Concepts</h3>
+                        <p class="text-gray-400 text-sm">Microsoft • April 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 6 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://via.placeholder.com/600x400" alt="Certificate 6" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Machine Learning Crash Course</h3>
+                        <p class="text-gray-400 text-sm">Google • June 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 7 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/Nc1bFhx/certificate.jpg" alt="Certificate 7" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Google AI Essentials</h3>
+                        <p class="text-gray-400 text-sm">CURSA • February 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 8 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/GQPvYCXJ/Achievements-olugbengamayowa-2194-Microsoft-Learn.jpg"
+                        alt="Certificate 8" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Fundamental AI Concepts</h3>
+                        <p class="text-gray-400 text-sm">Microsoft • September 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 9 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/r27yPqGc/Mayowa-Olugbenga-Intro-to-Machine-Learning.png"
+                        alt="Certificate 9" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Machine Learning</h3>
+                        <p class="text-gray-400 text-sm">KAGGLE • July 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 10 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/y7tP0tk/Mayowa-Olugbenga-Pandas.png" alt="Certificate 10" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Pandas</h3>
+                        <p class="text-gray-400 text-sm">KAGGLE • November 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 11 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/bj01bPQ0/Mayowa-Olugbenga-Intro-to-SQL.png" alt="Certificate 11" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">SQL</h3>
+                        <p class="text-gray-400 text-sm">KAGGLE • October 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 12 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/PpMJnhd/Mayowa-Olugbenga-Intro-to-Programming.png" alt="Certificate 12"
+                        class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Introduction to Programming</h3>
+                        <p class="text-gray-400 text-sm">KAGGLE • December 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 13 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/PZLFfvFq/Mayowa-Olugbenga-Intro-to-Deep-Learning.png" alt="Certificate 13" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1">Deep Learning</h3>
+                        <p class="text-gray-400 text-sm">KAGGLE • April 2025</p>
+                    </div>
+                </div>
+
+                <!-- Certificate 14 -->
+                <div class="certificate-img rounded-lg overflow-hidden">
+                    <img src="https://i.ibb.co/5WDCc2G1/Python-Certificate.jpg" alt="Certificate 13" class="w-full h-auto">
+                    <div class="p-4 bg-slate-800/80">
+                        <h3 class="text-lg font-semibold mb-1"> Python </h3>
+                        <p class="text-gray-400 text-sm">OneRoadMap • April 2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated Hero Section -->
+    <section class="relative py-32 overflow-hidden bg-gradient-to-br from-slate-900 to-indigo-900">
+        <!-- Particle Background -->
+        <div id="particles-js" class="absolute inset-0 opacity-20"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        <span id="animated-headline" class="gradient-text">Building the Future with AI & ML</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8 max-w-lg">
+                        Transforming ideas into intelligent solutions through cutting-edge artificial intelligence and
+                        machine learning technologies.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#projects" class="btn-gradient text-white px-6 py-3 rounded-full font-medium">
+                            View Projects <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#contact"
+                            class="border border-indigo-500 text-white px-6 py-3 rounded-full font-medium hover:bg-indigo-900/30 transition">
+                            Contact Me
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3D Avatar Container -->
+                <div class="lg:w-1/2 flex justify-center">
+                    <div id="avatar-container" class="w-64 h-64 md:w-80 md:h-80 relative">
+                        <!-- Lottie animation will be inserted here -->
+                        <script
+                            src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_iv4dsx3q.json"
+                            background="transparent" speed="1" style="width: 100%; height: 100%;" loop
+                            autoplay></lottie-player>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating AI Elements -->
+        <div class="absolute bottom-10 left-10 w-16 h-16 opacity-30">
+            <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="AI Icon"
+                class="w-full h-full object-contain floating" style="animation-delay: 0.2s;">
+        </div>
+        <div class="absolute top-20 right-20 w-20 h-20 opacity-30">
+            <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="AI Icon"
+                class="w-full h-full object-contain floating" style="animation-delay: 0.4s;">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-800/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 gradient-text">Get In Touch</h2>
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4">Let's Collaborate</h3>
+                    <p class="text-gray-300 mb-6">
+                        Have a project in mind or want to discuss potential opportunities?
+                        Feel free to reach out—I'm always open to interesting collaborations
+                        and new challenges in the AI/ML space.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">Email</p>
+                                <a href="mailto:mayowaolu16@gmail.com"
+                                    class="text-indigo-400 hover:text-indigo-300">mayowaolu16@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                                <i class="fab fa-github text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">GitHub</p>
+                                <a href="https://github.com/MAYOR-G" target="_blank"
+                                    class="text-indigo-400 hover:text-indigo-300">github.com/MAYOR-G</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-900/30 p-3 rounded-full mr-4">
+                                <i class="fab fa-linkedin-in text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">LinkedIn</p>
+                                <a href="https://www.linkedin.com/in/mayowa-olugbenga-66a691254?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                                    target="_blank"
+                                    class="text-indigo-400 hover:text-indigo-300">linkedin.com/in/MAYOR-G</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-300 mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" class="input-field w-full px-4 py-3 rounded-lg"
+                                required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-300 mb-2">Your Email</label>
+                            <input type="email" id="email" name="email" class="input-field w-full px-4 py-3 rounded-lg"
+                                required>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-300 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject"
+                                class="input-field w-full px-4 py-3 rounded-lg" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-300 mb-2">Your Message</label>
+                            <textarea id="message" name="message" rows="5"
+                                class="input-field w-full px-4 py-3 rounded-lg" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-gradient text-white px-6 py-3 rounded-full font-medium w-full">
+                            Send Message <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                    <div id="form-message" class="mt-4 hidden"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-slate-900/80 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold gradient-text">Olugbenga Mayowa Emmanuel</h3>
+                    <p class="text-gray-400">AI & Machine Learning Engineer</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://github.com/MAYOR-G" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/mayowa-olugbenga-66a691254?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                        target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="https://x.com/MayorG_FX?t=nCqz2yAs9VJ_dulLWUXEsg&s=09" target="_blank"
+                        class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://medium.com/@yourusername" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-medium text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-gray-500">
+                <p>&copy; <span id="current-year"></span> Mayor G. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Highlight active nav link on scroll
+        window.addEventListener('scroll', function () {
+            const scrollPosition = window.scrollY + 100;
+
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+            const messageDiv = document.getElementById('form-message');
+
+            // Simulate form submission (in a real scenario, you'd use a server-side script)
+            setTimeout(() => {
+                messageDiv.textContent = "Thank you for your message! I'll get back to you soon.";
+                messageDiv.classList.remove('hidden', 'text-red-500');
+                messageDiv.classList.add('text-green-500');
+                form.reset();
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    messageDiv.classList.add('hidden');
+                }, 5000);
+            }, 1000);
+        });
+
+        // CV download
+        document.getElementById('download-cv').addEventListener('click', function (e) {
+            e.preventDefault();
+            alert('CV download would start here. In a real implementation, this would download your CV file.');
+        });
+
+        // 3D Background with Three.js
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(width, height);
+            container.appendChild(renderer.domElement);
+
+            // Create a cube
+            const geometry = new THREE.BoxGeometry(2, 2, 2);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0x3b82f6,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.6
+            });
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            camera.position.z = 5;
+
+            // Handle window resize
+            window.addEventListener('resize', function () {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            });
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+
+                cube.rotation.x += 0.005;
+                cube.rotation.y += 0.01;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+        }
+
+        // Initialize 3D background
+        if (window.innerWidth > 768) {
+            initThreeJS();
+        }
+
+        // Particle.js background
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#3b82f6" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#3b82f6", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
+
+        // Typed.js animation for headline
+        const typed = new Typed('#animated-headline', {
+            strings: ["Building the Future with AI & ML", "Creating Intelligent Systems", "Developing Cutting-Edge Solutions"],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|'
+        });
+    </script>
+</body>
+
+</html>
